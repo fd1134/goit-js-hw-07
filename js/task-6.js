@@ -22,7 +22,7 @@ function createBoxes(amount) {
   console.log(boxes.innerHTML);
 }
 createBtn.addEventListener("click", () => {
-  let values = value.value;
+  let values =Number(value.value);
   if (values >= 1 && values <= 100) {
     console.log(values);
     createBoxes(values);
