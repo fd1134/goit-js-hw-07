@@ -1,34 +1,43 @@
+const value = document.querySelector(".number");
+const createBtn = document.querySelector("button[data-create]");
+const destroyBtn = document.querySelector("button[data-destroy]");
+const boxesContainer = document.querySelector("#boxes");
+
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
     .padStart(6, 0)}`;
 }
 
-const value = document.querySelector(".number");
-const createBtn = document.querySelector("button[data-create]");
-const destroyBtn = document.querySelector("button[data-destroy]");
-const boxes = document.querySelector("#boxes");
 function createBoxes(amount) {
-  let markup = "";
-  boxes.innerHTML = "";
+  const boxes = [];
+  let size = 30;
 
-  for (let index = 0; index < amount; index++) {
-    markup += `<div style="background-color:${getRandomHexColor()};width:${
-      30 + index * 10
-    }px; height:${30 + index * 10}px;"></div>`;
+  for (let i = 0; i < amount; i++) {
+    const box = document.createElement('div');
+    box.style.width = `${size}px`;
+    box.style.height = `${size}px`;
+    box.style.backgroundColor = getRandomHexColor();
+    boxes.push(box);
+    size += 10;
   }
 
-  boxes.innerHTML += markup;
-  console.log(boxes.innerHTML);
+  boxesContainer.innerHTML = '';
+  boxesContainer.append(...boxes);
 }
+
+function destroyBoxes() {
+  boxesContainer.innerHTML = '';
+}
+
 createBtn.addEventListener("click", () => {
   let values =Number(value.value);
   if (values >= 1 && values <= 100) {
-    console.log(values);
+    
     createBoxes(values);
   }
   value.value = "";
 });
-destroyBtn.addEventListener("click", () => {
-  boxes.innerHTML = "";
+destroyBtn.addEventListener("click",() => {
+  destroyBoxes();
 });
